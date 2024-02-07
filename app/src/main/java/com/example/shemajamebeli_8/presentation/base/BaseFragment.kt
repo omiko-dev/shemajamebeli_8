@@ -33,10 +33,8 @@ abstract class BaseFragment<VB: ViewBinding>(private val inflate: Inflate<VB>): 
         bind()
         event()
         observe()
-        listener()
     }
 
-    abstract fun listener()
     open fun observe() {}
     open fun bind() {}
     open fun event() {}

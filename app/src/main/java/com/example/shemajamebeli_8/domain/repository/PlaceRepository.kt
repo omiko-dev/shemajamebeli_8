@@ -5,5 +5,5 @@ import com.example.shemajamebeli_8.domain.model.PlaceModel
 import kotlinx.coroutines.flow.Flow
 
 interface PlaceRepository {
-    suspend  fun getAllPlace(): Flow<Resource<List<PlaceModel>>>
+    suspend fun getAllPlace(): Flow<Resource<List<PlaceModel>>>
 }

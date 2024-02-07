@@ -10,5 +10,5 @@ data class PlaceDto (
     val location: String,
     @Json(name = "reaction_count")
     val reactionCount: Int,
-    val rate: Int
+    val rate: Int?
 )

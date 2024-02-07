@@ -1,6 +1,5 @@
 package com.example.shemajamebeli_8.data.repository
 
-import android.util.Log
 import com.example.shemajamebeli_8.data.common.HandleResource
 import com.example.shemajamebeli_8.data.common.Resource
 import com.example.shemajamebeli_8.data.common.resourceMapper
@@ -16,15 +15,15 @@ class PlaceRepositoryImpl @Inject constructor(
     private val placeService: PlaceService,
     private val handleResource: HandleResource
 ): PlaceRepository {
-    override suspend fun getAllPlace(): Flow<Resource<List<PlaceModel>>> =
-        handleResource.handleResource {
+    override suspend fun getAllPlace(): Flow<Resource<List<PlaceModel>>> {
+        return handleResource.handleResource {
             placeService.getAllPlace()
         }.map { resource ->
             resource.resourceMapper { placeDtoList ->
                 placeDtoList.map {
-                    Log.i("omiko", it.toString() + "wai")
                     it.toDomain()
                 }
             }
         }
+    }
 }

@@ -20,10 +20,6 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(FragmentPlaceBinding::i
     private val viewModel: PlaceViewModel by viewModels()
     private lateinit var placeCardAdapter: PlaceCardAdapter
 
-    override fun listener() {
-        viewModel.onEvent(PlaceEvent.GetPlaceList)
-    }
-
     override fun observe() {
         observePlaceList()
     }
@@ -40,10 +36,11 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(FragmentPlaceBinding::i
         placeCardAdapter = PlaceCardAdapter()
         val transformer = CompositePageTransformer()
         transformer.addTransformer(MarginPageTransformer(40))
-        transformer.addTransformer { page, pos ->
-            val r = 1 - abs(pos)
-            page.scaleY = 0.85f + r + 0.14f
+        transformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.15f
         }
+
 
         binding.vpCard.apply {
             adapter = placeCardAdapter
@@ -58,10 +55,12 @@ class PlaceFragment : BaseFragment<FragmentPlaceBinding>(FragmentPlaceBinding::i
     private fun observePlaceList() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.placeListStateFlow.collect {
-                    placeCardAdapter.submitList(
-                        it.success
-                    )
+                viewModel.placeListStateFlow.collect { placeState ->
+                    placeState.let {
+                        it.success?.let { places ->
+                            placeCardAdapter.submitList(places)
+                        }
+                    }
                 }
             }
         }

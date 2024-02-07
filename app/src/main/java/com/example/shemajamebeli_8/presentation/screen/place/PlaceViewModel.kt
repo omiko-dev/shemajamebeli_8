@@ -56,5 +56,4 @@ class PlaceViewModel @Inject constructor(
             }
         }
     }
-
 }

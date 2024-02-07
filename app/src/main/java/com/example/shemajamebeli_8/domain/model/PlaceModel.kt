@@ -7,5 +7,5 @@ data class PlaceModel (
     val title: String,
     val location: String,
     val reactionCount: Int,
-    val rate: Int
+    val rate: Int?
 )

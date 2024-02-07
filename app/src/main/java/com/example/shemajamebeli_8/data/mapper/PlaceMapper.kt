@@ -11,5 +11,5 @@ fun PlaceDto.toDomain() =
         title = title,
         location = location,
         reactionCount = reactionCount,
-        rate = reactionCount
+        rate = rate
     )
